@@ -1,0 +1,21 @@
+﻿@using FA.JustBlog.ViewModels.Post
+@model List<PostViewModel>
+@{
+    ViewBag.Title = "GetPostByTagId";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="col-lg-12 col-md-10 mx-auto">
+    @{
+        foreach (var item in Model)
+        {
+            <div class="post-preview">
+                <h3>
+                    <a href="/post/@item.SeoUrl"> @item.SeoUrl</a>
+                </h3>
+                <small>Posted by @item.CreatedOn </small>
+            </div>
+            <hr />
+        }
+    }
+</div>

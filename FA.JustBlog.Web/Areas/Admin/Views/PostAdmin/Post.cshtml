@@ -1,0 +1,56 @@
+﻿
+@using FA.JustBlog.ViewModels.Post
+@using FA.JustBlog.ViewModels.Category
+@model CreatePostViewModel
+@{
+    ViewBag.Title = "Post";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var categories = TempData["Categories"] as List<CategoryViewModel>;
+}
+
+<h2>CreatePost</h2>
+<form action="/Admin/PostAdmin/CreatePost" method="post">
+    @*@using (Html.BeginForm("CreatePost", "PostAdmin", FormMethod.Post))
+           {
+        <div class="form-control">*@
+
+
+    @Html.HiddenFor(x => x.Id)
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Title, new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", onchange = "changeUrl('Title','SeoUrl')" })
+        @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.SeoUrl, new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.SeoUrl, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.SeoUrl, null, new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.CategoryId, new { @class = "form-label" })
+        <select name="CategoryId" class="form-control">
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+
+            }
+        </select>
+        @*@Html.ValidationMessageFor(x => x.SeoUrl, null, new { @class = "text-danger" })*@
+    </div>
+    <div class="mb-3">
+            @Html.LabelFor(x => x.Tags, new { @class = "form-label" })
+            @Html.TextAreaFor(x => x.Tags, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Tags, null, new { @class = "text-danger" })
+        </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Content, new { @class = "form-label" })
+        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", id = "editor", @rows = "5" })
+        @Html.ValidationMessageFor(x => x.Content, null, new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </div>
+    @*</div>
+        }*@
+</form>
+

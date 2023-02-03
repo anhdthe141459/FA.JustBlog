@@ -1,0 +1,61 @@
+﻿@using FA.JustBlog.ViewModels.Post
+@using FA.JustBlog.ViewModels.Tags
+@model PagedList.IPagedList<PostViewModel>
+
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    var postLatest = TempData["listPostLatest"] as List<PostViewModel>;
+    var tags = TempData["Tags"] as IEnumerable<TagViewModel>;
+}
+
+
+<div class="col-lg-8 col-md-12 mx-auto">
+    @{
+        foreach (var item in Model)
+        {
+            <div class="post-preview">
+                <h2>
+                    <a href="post/@item.SeoUrl"> @item.SeoUrl</a>
+                </h2>
+                <small>Posted by @item.CreatedOn </small>
+            </div>
+            <hr />
+        }
+
+    }
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
+<div class="col-lg-4 col-md-12 mx-auto">
+    <h2>
+        Bài viết mới nhất
+    </h2>
+    <hr />
+    @foreach (var item in postLatest)
+    {
+        <div class="post-list-item">
+            <h5>
+                <a href="/post/@item.SeoUrl"> @item.SeoUrl</a>
+            </h5>
+            <small>Posted by @item.CreatedOn </small>
+        </div>
+        <hr />
+    }
+    <h5>Các Loại thẻ </h5>
+    @foreach (var item in tags)
+    {
+        <a class="badge badge-secondary text-nowrap font-weight-normal" href="/posts/@item.Id" style="font-size: 21px; margin-bottom: 4px">
+            @item.Name
+            @*<span class="badge badge-light  font-weight-normal"></span>*@
+        </a>
+    }
+</div>
+
+
+
+
+
+
+

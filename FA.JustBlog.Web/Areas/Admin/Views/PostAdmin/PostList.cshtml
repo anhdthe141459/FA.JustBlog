@@ -1,0 +1,66 @@
+﻿@using FA.JustBlog.ViewModels.Post
+@model List<PostViewModel>
+@using FA.JustBlog.ViewModels.Category
+@{
+    ViewBag.Title = "PostList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var categories = TempData["ok"] as List<CategoryViewModel>;
+}
+
+<h2>PostList</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>SeoUrl</th>
+        <th>Tags</th>
+        <th>Category</th>
+        <th colspan="2">Action</th>
+
+    </tr>
+    @foreach (var post in Model)
+    {
+<tr>
+    <td>@post.Id</td>
+    <td>@post.Title</td>
+    <td>@post.SeoUrl</td>
+    <td>
+        @foreach (var item in post.Tags)
+        {
+            @item.Name
+        }
+    </td>
+
+    @*@if (post.Category != null)
+    {
+        <td>  @post.Category</td>
+    }
+    else
+    {
+        <td> </td>
+    }*@
+
+    <td>@post.Category</td>
+
+    <td>
+        <a href="@Url.Action("Post",new {post.Id,post.Title,post.SeoUrl,post.Content,post.Category})" class="btn btn-primary">Edit</a>
+    </td>
+    <td>
+
+        <a class="btn btn-warning" onclick="myFunction(this,@post.Id)">Delete</a>
+    </td>
+</tr>
+    }
+</table>
+<script>
+    function myFunction(a, id) {
+        var b = confirm("Do you want delete post");
+        if (b == true) {
+            a.href = "@Url.Action("DeletePost")/" + id;
+        }
+
+
+    }
+</script>
+@*href="@Url.Action("DeletePost", new { post.Id })"*@
+           

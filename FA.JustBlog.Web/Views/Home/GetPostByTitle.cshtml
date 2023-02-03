@@ -1,0 +1,24 @@
+﻿@using FA.JustBlog.ViewModels.Post
+@using FA.JustBlog.ViewModels.Tags
+@model PostViewModel
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    var tags = TempData["Tags"] as IEnumerable<TagViewModel>;
+}
+<div class="col-lg-12 col-md-10 mx-auto">
+    <h2>@Model.Title</h2>
+    <div>
+        Tag:
+        @foreach (var item in tags)
+        {
+
+            <a class="badge badge-secondary text-nowrap font-weight-normal" href="/posts/@item.Id" style="font-size: 21px; margin-bottom: 4px">
+                @item.Name
+            </a>
+        }
+    </div>
+   
+
+    <hr />
+    <div>@Html.Raw(Model.Content)</div>
+</div>
